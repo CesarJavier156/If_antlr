@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora ANTLR</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #c2f0c2; /* verde menta suave */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            width: 60%;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            padding: 30px 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2f5233;
+            margin-bottom: 25px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            padding: 10px;
+            resize: vertical;
+            background-color: #f7fff7;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #2f5233;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3b6d44;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            background: #e8f8e8;
+            border-left: 5px solid #2f5233;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #2f5233;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora ANTLR</h1>
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="codigo" placeholder="Escribe tu código aquí...">{{ codigo|default:'' }}</textarea>
+            <br><br>
+            <button type="submit">Ejecutar</button>
+        </form>
+
+        {% if resultado %}
+        <div class="resultado">
+            <strong>Resultado:</strong><br><br>
+            {{ resultado }}
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>

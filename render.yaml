@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: calculadora-antlr
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn calculadora_web.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: calculadora_web.settings

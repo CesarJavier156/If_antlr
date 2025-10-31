@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora ANTLR</title>
+    <style>
+        /* ======= ESTILOS GLOBALES ======= */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #0a0f1f 0%, #1c2b50 100%);
+            color: #f2f2f2;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 2rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #0078ff;
+            text-shadow: 0 0 10px #0078ff;
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            overflow: hidden;
+        }
+
+        /* ======= ÁREA DE CÓDIGO ======= */
+        .editor {
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            flex: 1;
+            background: #121829;
+            border: 2px solid #0078ff;
+            border-radius: 10px;
+            color: #f8f8f8;
+            font-size: 1rem;
+            padding: 1rem;
+            resize: none;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #00b3ff;
+        }
+
+        button {
+            margin-top: 1rem;
+            background: #0078ff;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #009dff;
+            transform: translateY(-2px);
+        }
+
+        /* ======= PANEL DE RESULTADOS ======= */
+        .resultado {
+            background: #0b1020;
+            border-left: 2px solid #0078ff;
+            padding: 1.5rem;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+        }
+
+        .resultado strong {
+            color: #00b3ff;
+        }
+
+        /* ======= RESPONSIVE ======= */
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+                grid-template-rows: 60% 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>⚙️ Calculadora ANTLR</header>
+    <main>
+        <section class="editor">
+            <form method="POST">
+                {% csrf_token %}
+                <textarea name="codigo" placeholder="Escribe tu código ANTLR aquí... (ejemplo: X = 5; Y = 3; if (X > Y) { Z = X + Y; })">{{ codigo|default_if_none:"" }}</textarea>
+                <button type="submit">▶ Ejecutar</button>
+            </form>
+        </section>
+        <section class="resultado">
+            {% if resultado %}
+                <strong>Resultado:</strong>
+                <br><br>
+                {{ resultado|safe }}
+            {% else %}
+                <em>Ejecuta el código para ver los resultados aquí.</em>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
